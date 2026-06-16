@@ -1,0 +1,19 @@
+trigger: none # This prevents it from running automatically
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+# This simulates linking your custom variable group secrets!
+variables:
+  DB_PASSWORD: 'mySecretPassword123' 
+
+steps:
+- script: |
+    echo "========================================="
+    echo "STARTING CONTINUOUS DEPLOYMENT (CD)..."
+    echo "========================================="
+    echo "Connecting to Azure App Services..."
+    echo "Using secure variable password: $(DB_PASSWORD)"
+    echo "Deploying application package..."
+    echo "Deployment completed successfully!"
+  displayName: 'Simulate Application Deployment to Azure'
