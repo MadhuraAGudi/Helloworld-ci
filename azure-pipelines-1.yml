@@ -19,13 +19,17 @@ stages:
   condition: succeeded()
   jobs:
   - job: DeployJob
+    # This links the exact Variable Group you created in Step 11/12
     variables:
-      DB_PASSWORD: 'MySecurePassword123'
+    - group: 'New-variable-group-23-May'
     steps:
     - script: |
-        echo "Starting simulated deployment flow..."
-        echo "Connecting to simulated Azure Environment..."
-        echo "Checking configurations..."
-        echo "The database password variable is safely loaded."
-        echo "Deploying application successfully to Azure App Service simulation!"
-      displayName: 'Simulate Deployment Script'
+        echo "Starting continuous deployment flow..."
+        echo "Connecting to target Azure App Service environment..."
+        echo "Validating infrastructure variables..."
+        
+        # Testing Key Vault mapping: Azure will mask the value automatically for safety
+        echo "Successfully fetched DB_PASSWORD from Key Vault simulation: $(DB_PASSWORD)"
+        
+        echo "Deployment script execution complete!"
+      displayName: 'Simulate Deployment Task'
