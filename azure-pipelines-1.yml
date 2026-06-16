@@ -1,19 +1,31 @@
-trigger: none # This prevents it from running automatically
+trigger:
+- main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
-# This simulates linking your custom variable group secrets!
-variables:
-  DB_PASSWORD: 'mySecretPassword123' 
+stages:
+- stage: Build
+  displayName: 'Build Stage'
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: echo "Simulating Application Build..."
+      displayName: 'Simulate Application Build'
 
-steps:
-- script: |
-    echo "========================================="
-    echo "STARTING CONTINUOUS DEPLOYMENT (CD)..."
-    echo "========================================="
-    echo "Connecting to Azure App Services..."
-    echo "Using secure variable password: $(DB_PASSWORD)"
-    echo "Deploying application package..."
-    echo "Deployment completed successfully!"
-  displayName: 'Simulate Application Deployment to Azure'
+- stage: Deploy
+  displayName: 'Deploy Stage'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: DeployJob
+    # This is where your Variable Group will connect later!
+    variables:
+    - group: 'New-variable-group-23-May' 
+    
+    steps:
+    - script: |
+        echo "Starting simulated deployment flow..."
+        echo "Connecting to simulated Azure Environment..."
+        echo "Deploying application successfully!"
+      displayName: 'Simulate Deployment Script'
