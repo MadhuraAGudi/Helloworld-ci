@@ -20,17 +20,12 @@ stages:
   jobs:
   - job: DeployJob
     variables:
-    - group: 'New variable group 23-May' 
-    
+      DB_PASSWORD: 'MySecurePassword123'
     steps:
     - script: |
         echo "Starting simulated deployment flow..."
         echo "Connecting to simulated Azure Environment..."
-        echo "Checking secrets from Key Vault simulation..."
-        
-        # This will safely verify if the secret group is connected. 
-        # Azure DevOps will automatically mask the output as '***' in logs for security!
-        echo "The database password secret is: $(DB_PASSWORD)"
-        
-        echo "Deploying application successfully with secure configurations!"
-      displayName: 'Simulate Deployment with Secrets'
+        echo "Checking configurations..."
+        echo "The database password variable is safely loaded."
+        echo "Deploying application successfully to Azure App Service simulation!"
+      displayName: 'Simulate Deployment Script'
